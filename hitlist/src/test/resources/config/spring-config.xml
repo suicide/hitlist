@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+		
+		
+		<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" destroy-method="close" />
+		
+		
+		<!-- Page objects -->
+		
+		<bean id="page" abstract="true" class="us.getit.hitlist.page.Page">
+			<property name="driver" ref="driver" />
+			<property name="baseUrl" value="http://localhost:8080/hitlist" />
+		</bean>
+		
+		<bean id="addPage" class="us.getit.hitlist.page.AddPage" parent="page">
+			<property name="listPage" ref="listPage" />
+		</bean>
+
+		<bean id="listPage" class="us.getit.hitlist.page.ListPage" parent="page">
+			<property name="addPage" ref="addPage" />
+		</bean>
+		
+		<bean id="showPage" class="us.getit.hitlist.page.ShowPage" parent="page">
+		</bean>
+
+</beans>

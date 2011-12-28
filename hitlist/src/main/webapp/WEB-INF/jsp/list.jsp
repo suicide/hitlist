@@ -18,7 +18,7 @@
 		<c:forEach items="${personList}" var="person">
 			<c:url value="/show/${person.id}" var="showUrl"/>
 			<li>
-				<a href="${showUrl}">
+				<a href="${showUrl}" id="showLink_${person.id}">
 					<c:out value="${person.firstname}" />
 					<c:out value="${person.lastname}" />
 				</a>
@@ -26,6 +26,6 @@
 		</c:forEach>
 	</ul>
 	<c:url var="addUrl" value="/add" />
-	<a href="${addUrl}">add</a>
+	<a href="${addUrl}" id="addLink">add</a>
 </body>
 </html>

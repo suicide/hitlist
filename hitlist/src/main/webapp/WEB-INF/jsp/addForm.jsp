@@ -18,10 +18,10 @@
 		<form:form commandName="form" action="${actionUrl}" method="post">
 			<form:label path="person.firstname">Firstname</form:label><form:input path="person.firstname" /><br />
 			<form:label path="person.lastname">Lastname</form:label><form:input path="person.lastname" /><br />
-			<input type="submit"/>
+			<input type="submit" id="formSubmit"/>
 		</form:form>
 	</p>
 	<c:url var="listUrl" value="/list" />
-	<a href="${listUrl}">cancel</a>
+	<a href="${listUrl}" id="cancelLink">cancel</a>
 </body>
 </html>

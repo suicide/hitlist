@@ -18,6 +18,6 @@
 		Lastname: <c:out value="${person.lastname}" />
 	</p>
 	<c:url var="listUrl" value="/list" />
-	<a href="${listUrl}">list all</a>
+	<a href="${listUrl}" id="listLink">list all</a>
 </body>
 </html>
