@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import us.getit.hitlist.model.Person;
 import us.getit.hitlist.page.AddPage;
 import us.getit.hitlist.page.ListPage;
+import us.getit.hitlist.service.PersonService;
 
 /**
  * @author psy
@@ -27,11 +29,21 @@ public class AddTest {
 	@Autowired
 	private AddPage addPage;
 
+	@Autowired
+	private PersonService personService;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+
+		Person person = new Person();
+		person.setFirstname("John");
+		person.setLastname("Doe");
+
+		personService.save(person);
+
 	}
 
 	@Test

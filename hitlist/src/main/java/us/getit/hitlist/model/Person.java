@@ -3,11 +3,18 @@
  */
 package us.getit.hitlist.model;
 
+import java.io.Serializable;
+
 /**
  * @author psy
  * 
  */
-public class Person {
+public class Person implements Serializable {
+
+	/**
+	 * needs to implement serializable for JMX
+	 */
+	private static final long serialVersionUID = -1028711244621412960L;
 
 	/**
 	 * id
