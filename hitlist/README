@@ -1,0 +1,5 @@
+This is a test project for http://meh.get-it.us
+
+It is a simple Spring + Maven Webapp. It is used to
+demonstrate Selenium testing combined with test data
+injection using JMX
