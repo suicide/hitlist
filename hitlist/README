@@ -2,4 +2,11 @@ This is a test project for http://meh.get-it.us
 
 It is a simple Spring + Maven Webapp. It is used to
 demonstrate Selenium testing combined with test data
-injection using JMX
+injection using JMX.
+
+For this to work you need to start the application in
+an servlet container, e.g. tomcat, and run the unit tests
+separately as they need to connect to a running insance
+of the app.
+
+For more info see http://meh.get-it.us

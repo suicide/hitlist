@@ -29,6 +29,9 @@ public class AddTest {
 	@Autowired
 	private AddPage addPage;
 
+	/**
+	 * this is a jmx proxy!
+	 */
 	@Autowired
 	private PersonService personService;
 

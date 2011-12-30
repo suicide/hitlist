@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-	<!-- JMX -->
+	<!-- JMX like in the spring reference-->
 	<context:mbean-server id="mbeanServer"/>
 	
 	<bean id="mbeanExporter" class="org.springframework.jmx.export.MBeanExporter">
