@@ -4,6 +4,8 @@
 package us.getit.hitlist.page;
 
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @author psy
@@ -11,24 +13,10 @@ import org.openqa.selenium.WebDriver;
  */
 public abstract class Page {
 
+	@Autowired
 	protected WebDriver driver;
 
+	@Value("#{configData.baseUrl}")
 	protected String baseUrl;
-
-	/**
-	 * @param driver
-	 *            the driver to set
-	 */
-	public void setDriver(WebDriver driver) {
-		this.driver = driver;
-	}
-
-	/**
-	 * @param baseUrl
-	 *            the baseUrl to set
-	 */
-	public void setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
-	}
 
 }

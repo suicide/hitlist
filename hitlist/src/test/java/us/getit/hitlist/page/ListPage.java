@@ -6,35 +6,24 @@ package us.getit.hitlist.page;
 import static org.openqa.selenium.By.id;
 
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author psy
  * 
  */
+@Component
 public class ListPage extends Page {
 
-	private AddPage addPage;
+	@Value("#{configData.listPage}")
+	private String path;
 
-	private final String path;
-
-	/**
-	 * @param addPage
-	 *            the addPage to set
-	 */
-	public void setAddPage(AddPage addPage) {
-		this.addPage = addPage;
-	}
-
-	public ListPage() {
-		path = "/list";
-	}
-
-	public AddPage clickAddPage() {
+	public void clickAddPage() {
 
 		WebElement link = driver.findElement(id("addLink"));
 		link.click();
 
-		return addPage;
 	}
 
 	public void open() {

@@ -6,29 +6,20 @@ package us.getit.hitlist.page;
 import static org.openqa.selenium.By.id;
 
 import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
 
 /**
  * @author psy
  * 
  */
+@Component
 public class AddPage extends Page {
 
-	private ListPage listPage;
-
-	/**
-	 * @param listPage
-	 *            the listPage to set
-	 */
-	public void setListPage(ListPage listPage) {
-		this.listPage = listPage;
-	}
-
-	public ListPage cancel() {
+	public void cancel() {
 
 		WebElement link = driver.findElement(id("cancelLink"));
 		link.click();
 
-		return listPage;
 	}
 
 	public void setFirstname(String firstname) {
@@ -42,11 +33,10 @@ public class AddPage extends Page {
 
 	}
 
-	public ListPage submitForm() {
+	public void submitForm() {
 		WebElement submitButton = driver.findElement(id("formSubmit"));
 		submitButton.submit();
 
-		return listPage;
 	}
 
 }

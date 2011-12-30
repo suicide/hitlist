@@ -24,6 +24,9 @@ public class AddTest {
 	@Autowired
 	private ListPage listPage;
 
+	@Autowired
+	private AddPage addPage;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -35,7 +38,7 @@ public class AddTest {
 	public void test() {
 		listPage.open();
 
-		AddPage addPage = listPage.clickAddPage();
+		listPage.clickAddPage();
 
 		addPage.setFirstname("Peter");
 		addPage.setLastname("Pan");

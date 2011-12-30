@@ -7,26 +7,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		
+		<!-- Scan for page objects -->
+		<context:component-scan base-package="us.getit.hitlist.page" />
 		
+		<!-- our "browser" -->
 		<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" destroy-method="close" />
 		
+		<util:map id="configData" key-type="java.lang.String" value-type="java.lang.String">
+			<entry key="baseUrl" value="http://localhost:8080/hitlist" />
+			<entry key="listPage" value="/list" />
+			<entry key="addPage" value="/add" />
+			<entry key="showPage" value="/show" />
+		</util:map>
 		
-		<!-- Page objects -->
-		
-		<bean id="page" abstract="true" class="us.getit.hitlist.page.Page">
-			<property name="driver" ref="driver" />
-			<property name="baseUrl" value="http://localhost:8080/hitlist" />
-		</bean>
-		
-		<bean id="addPage" class="us.getit.hitlist.page.AddPage" parent="page">
-			<property name="listPage" ref="listPage" />
-		</bean>
-
-		<bean id="listPage" class="us.getit.hitlist.page.ListPage" parent="page">
-			<property name="addPage" ref="addPage" />
-		</bean>
-		
-		<bean id="showPage" class="us.getit.hitlist.page.ShowPage" parent="page">
-		</bean>
-
 </beans>
