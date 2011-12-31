@@ -11,6 +11,9 @@
 
 
 	<!-- JMX like in the spring reference-->
+	<!-- This section should be omitted in a production system if there is no need for JMX there -->
+	<!-- This can be done via maven or Spring's new Profiles. -->
+	<!-- Besides the declaration of Person as Serializable there were no code modifications needed besides this config. -->
 	<context:mbean-server id="mbeanServer"/>
 	
 	<bean id="mbeanExporter" class="org.springframework.jmx.export.MBeanExporter">
@@ -30,6 +33,8 @@
 	<bean id="rmiRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
 		<property name="port" value="10990" />
 	</bean>
+
+	<!-- Application Beans -->
 
 	<bean id="personService" class="us.getit.hitlist.service.MapPersonService">
 		<property name="storage"><util:map key-type="java.lang.Long" value-type="us.getit.hitlist.model.Person" /></property>

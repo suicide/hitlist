@@ -14,8 +14,8 @@
 <body>
 	<h1>Person to kill</h1>
 	<p>
-		Firstname: <c:out value="${person.firstname}" /><br />
-		Lastname: <c:out value="${person.lastname}" />
+		Firstname: <span id="firstname"><c:out value="${person.firstname}" /></span><br />
+		Lastname: <span id="lastname"><c:out value="${person.lastname}" /></span>
 	</p>
 	<c:url var="listUrl" value="/list" />
 	<a href="${listUrl}" id="listLink">list all</a>

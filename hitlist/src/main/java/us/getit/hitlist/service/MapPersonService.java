@@ -46,13 +46,15 @@ public class MapPersonService implements PersonService {
 	 * )
 	 */
 	@Override
-	public void save(Person person) {
+	public long save(Person person) {
 		if (person.getId() == null) {
 			person.setId(currentId++);
 
 			storage.put(person.getId(), person);
 		}
-
+		// id returned for the tests! As the change in the object is not
+		// transmitted back to the test client
+		return person.getId();
 	}
 
 	/*
@@ -83,6 +85,12 @@ public class MapPersonService implements PersonService {
 	public Collection<Person> list() {
 
 		return storage.values();
+	}
+
+	@Override
+	public void deleteAll() {
+		storage.clear();
+
 	}
 
 }
