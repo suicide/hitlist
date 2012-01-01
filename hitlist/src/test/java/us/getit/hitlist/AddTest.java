@@ -3,6 +3,10 @@
  */
 package us.getit.hitlist;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import us.getit.hitlist.model.Person;
 import us.getit.hitlist.page.AddPage;
 import us.getit.hitlist.page.ListPage;
 import us.getit.hitlist.service.PersonService;
@@ -41,11 +44,7 @@ public class AddTest {
 	@Before
 	public void setUp() throws Exception {
 
-		Person person = new Person();
-		person.setFirstname("John");
-		person.setLastname("Doe");
-
-		personService.save(person);
+		personService.deleteAll();
 
 	}
 
@@ -58,6 +57,10 @@ public class AddTest {
 		addPage.setFirstname("Peter");
 		addPage.setLastname("Pan");
 		addPage.submitForm();
+
+		List<String> persons = listPage.getPersons();
+
+		assertEquals("Peter Pan", persons.get(0));
 
 	}
 

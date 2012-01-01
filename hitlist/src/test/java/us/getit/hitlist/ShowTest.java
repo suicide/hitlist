@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import us.getit.hitlist.model.Person;
+import us.getit.hitlist.page.ListPage;
 import us.getit.hitlist.page.ShowPage;
 import us.getit.hitlist.service.PersonService;
 
@@ -29,6 +30,9 @@ public class ShowTest {
 
 	@Autowired
 	private ShowPage showPage;
+
+	@Autowired
+	private ListPage listPage;
 
 	/**
 	 * @throws java.lang.Exception
@@ -55,6 +59,27 @@ public class ShowTest {
 
 		// do the test!
 		showPage.open(id);
+
+		assertEquals(firstname, showPage.getFirstname());
+		assertEquals(lastname, showPage.getLastname());
+	}
+
+	@Test
+	public void testFromList() {
+		String firstname = "Homer";
+		String lastname = "Simpson";
+
+		Person person = new Person();
+		person.setFirstname(firstname);
+		person.setLastname(lastname);
+
+		// the method had to be changed as changes on the person object are not
+		// transmitted back
+		long id = personService.save(person);
+
+		// do the test!
+		listPage.open();
+		listPage.clickShowLink(id);
 
 		assertEquals(firstname, showPage.getFirstname());
 		assertEquals(lastname, showPage.getLastname());

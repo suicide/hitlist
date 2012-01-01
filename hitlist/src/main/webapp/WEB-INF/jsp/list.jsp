@@ -18,7 +18,7 @@
 		<c:forEach items="${personList}" var="person">
 			<c:url value="/show/${person.id}" var="showUrl"/>
 			<li>
-				<a href="${showUrl}" id="showLink_${person.id}">
+				<a href="${showUrl}" id="showLink_${person.id}" class="person">
 					<c:out value="${person.firstname}" />
 					<c:out value="${person.lastname}" />
 				</a>
