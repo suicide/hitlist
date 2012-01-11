@@ -7,32 +7,4 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 		
-		<!-- Scan for page objects -->
-		<!-- WARNING: Page Objects are singletons in this case, however they are not stateless as they all use 
-		the same driver which does have a state (the page its showing) -->
-		<context:component-scan base-package="us.getit.hitlist.page" />
-		
-		<!-- our "browser" -->
-		<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" destroy-method="close" />
-		
-		<!-- Configuration data -->
-		<util:map id="configData" key-type="java.lang.String" value-type="java.lang.String">
-			<entry key="baseUrl" value="http://localhost:8080/hitlist" />
-			<entry key="listPage" value="/list" />
-			<entry key="addPage" value="/add" />
-			<entry key="showPage" value="/show" />
-		</util:map>
-		
-		<!-- JMX connector -->
-		<bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
-			<property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:10990/myconnector"/>
-		</bean>
-		
-		<!-- JMX proxy -->
-		<bean id="personService" class="org.springframework.jmx.access.MBeanProxyFactoryBean">
-			<property name="objectName" value="bean:name=personService" />
-			<property name="proxyInterface" value="us.getit.hitlist.service.PersonService" />
-			<property name="server" ref="clientConnector" />
-		</bean>
-		
 </beans>
