@@ -21,16 +21,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- we want to do it without the web.xml -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-
 			<!-- Skip tests! -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -67,12 +57,7 @@
 			<version>3.1.0.RELEASE</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-servlet_3.0_spec</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
+
 
 		<!-- Annotations -->
 		<dependency>
@@ -95,6 +80,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_2.5_spec</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -102,7 +93,7 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
