@@ -4,6 +4,7 @@
 package us.getit.hitlist.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import us.getit.hitlist.model.Person;
 
@@ -28,7 +29,7 @@ public interface PersonService {
 
 	Person getById(Long id);
 
-	Collection<Person> list();
+	List<Person> list();
 
 	/**
 	 * This method is needed for testing with jmx as we do not want to restart

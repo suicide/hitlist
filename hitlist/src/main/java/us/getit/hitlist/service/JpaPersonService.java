@@ -4,6 +4,7 @@
 package us.getit.hitlist.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,7 +57,7 @@ public class JpaPersonService implements PersonService {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Person> list() {
+	public List<Person> list() {
 		return em.createQuery("from Person").getResultList();
 	}
 

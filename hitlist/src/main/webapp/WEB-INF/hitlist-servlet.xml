@@ -10,6 +10,8 @@
 
 	<!-- scan for controllers -->
 	<context:component-scan base-package="us.getit.hitlist.web" />
+	
+	<mvc:annotation-driven/>
 
 	<!-- JSP views -->
 	<bean id="viewResolver"

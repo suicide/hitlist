@@ -3,7 +3,9 @@
  */
 package us.getit.hitlist.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import us.getit.hitlist.model.Person;
@@ -82,9 +84,9 @@ public class MapPersonService implements PersonService {
 	}
 
 	@Override
-	public Collection<Person> list() {
+	public List<Person> list() {
 
-		return storage.values();
+		return new ArrayList<Person>(storage.values());
 	}
 
 	@Override

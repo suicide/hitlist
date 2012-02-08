@@ -18,44 +18,77 @@
 <script type="text/javascript" src="${underscoreUrl}" ></script>
 <script type="text/javascript" src="${backboneUrl}" ></script>
 
-<script type="text/javascript">
-	var Person = Backbone.Model.extend({
-		
-		defaults: {
-			id: null,
-			firstname: null,
-			lastname: null
-		} 
-		
-	});
-	
-	var PersonList = Backbone.Collection.extend({
-		model: Person
-	});
-	
-	var PersonView = Backbone.View.extend({
-		el: $('#personList')
-	});
-
-</script>
 
 <title>List</title>
 </head>
 <body>
 	<h1>Hitlist</h1>
 	<p>People to kill</p>
+	<div id="personContainer"></div>
 	<ul id="personList">
-		<c:forEach items="${personList}" var="person">
-			<c:url value="/show/${person.id}" var="showUrl"/>
-			<li>
-				<a href="${showUrl}" id="showLink_${person.id}" class="person">
-					<c:out value="${person.firstname}" />
-					<c:out value="${person.lastname}" />
-				</a>
-			</li>
-		</c:forEach>
 	</ul>
+
 	<c:url var="addUrl" value="/add" />
 	<a href="${addUrl}" id="addLink">add</a>
+	
+	<script type="text/template" id="personListItem">
+		<li>--{{firstname}} {{lastname}}--</li>
+	</script>
+	
+	<c:url value="/person" var="personUrl" />
+	<script type="text/javascript">
+		_.templateSettings = {
+			interpolate : /\{\{(.+?)\}\}/g
+		};
+	
+		var Person = Backbone.Model.extend({
+			
+			defaults: {
+				id: null,
+				firstname: null,
+				lastname: null
+			} 
+			
+		});
+		
+		var PersonList = Backbone.Collection.extend({
+			model: Person,
+			url: "${personUrl}"
+		});
+		
+		var PersonListView = Backbone.View.extend({
+			el: $('#personList'),
+			
+			initialize: function() {
+				this.model.bind("reset", this.render, this);
+				this.model.fetch();
+			},
+			
+			render: function() {
+				_.each(this.model.models, function(person) {
+					$(this.el).append(
+							new PersonListItemView({model: person}).render().el);
+				}, this);
+				return this;
+			}
+		});
+		
+		var PersonListItemView = Backbone.View.extend({
+			tagName: "li",
+			template: _.template($('#personListItem').html()),
+			render: function() {
+				$(this.el).html(this.template(this.model.toJSON()));
+				return this;
+			}
+		});
+		
+		var PersonView = Backbone.View.extend({
+			el: $('#personContainer')
+		});
+		
+		var personList = new PersonList();
+		var personListView = new PersonListView({model: personList});
+		//personListView.render();
+	</script>
 </body>
 </html>
