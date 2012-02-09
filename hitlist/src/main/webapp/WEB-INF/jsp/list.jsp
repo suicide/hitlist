@@ -11,10 +11,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <c:url var="jqueryUrl" value="/static/js/jquery-1.7.1.js" />
 <c:url var="json2Url" value="/static/js/json2.js" />
+<c:url var="mustacheUrl" value="/static/js/mustache.js" />
 <c:url var="underscoreUrl" value="/static/js/underscore.js" />
 <c:url var="backboneUrl" value="/static/js/backbone.js" />
 <script type="text/javascript" src="${jqueryUrl}" ></script>
 <script type="text/javascript" src="${json2Url}" ></script>
+<script type="text/javascript" src="${mustacheUrl}" ></script>
 <script type="text/javascript" src="${underscoreUrl}" ></script>
 <script type="text/javascript" src="${backboneUrl}" ></script>
 
@@ -32,14 +34,17 @@
 	<a href="${addUrl}" id="addLink">add</a>
 	
 	<script type="text/template" id="personListItem">
-		<li>--{{firstname}} {{lastname}}--</li>
+		<li>{{firstname}} {{lastname}}</li>
 	</script>
 	
 	<c:url value="/person" var="personUrl" />
 	<script type="text/javascript">
-		_.templateSettings = {
-			interpolate : /\{\{(.+?)\}\}/g
-		};
+		
+		function template(templateString) {
+			return function(parameters) {
+				return Mustache.render(templateString, parameters);
+			};
+		}
 	
 		var Person = Backbone.Model.extend({
 			
@@ -75,7 +80,7 @@
 		
 		var PersonListItemView = Backbone.View.extend({
 			tagName: "li",
-			template: _.template($('#personListItem').html()),
+			template: template($('#personListItem').html()),
 			render: function() {
 				$(this.el).html(this.template(this.model.toJSON()));
 				return this;
@@ -88,7 +93,7 @@
 		
 		var personList = new PersonList();
 		var personListView = new PersonListView({model: personList});
-		//personListView.render();
+
 	</script>
 </body>
 </html>
