@@ -31,8 +31,6 @@ public class ListController {
 	@RequestMapping("/list")
 	public String list(Model model) {
 
-		model.addAttribute("personList", personService.list());
-
 		return "list";
 	}
 
