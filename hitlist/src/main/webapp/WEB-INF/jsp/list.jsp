@@ -34,7 +34,11 @@
 	<a href="${addUrl}" id="addLink">add</a>
 	
 	<script type="text/template" id="personListItem">
-		<li>{{firstname}} {{lastname}}</li>
+		<a href="#person/{{id}}">{{firstname}} {{lastname}}</a>
+	</script>
+	
+	<script type="text/template" id="personDetail">
+		Detail: {{firstname}} {{lastname}}!
 	</script>
 	
 	<c:url value="/person" var="personUrl" />
@@ -66,7 +70,6 @@
 			
 			initialize: function() {
 				this.model.bind("reset", this.render, this);
-				this.model.fetch();
 			},
 			
 			render: function() {
@@ -80,20 +83,61 @@
 		
 		var PersonListItemView = Backbone.View.extend({
 			tagName: "li",
+			events: {
+				'click a': 'doSomething'
+			},
 			template: template($('#personListItem').html()),
 			render: function() {
+				$(this.el).html(this.template(this.model.toJSON()));
+				return this;
+			},
+			doSomething: function() {
+				alert('something happened');
+			}
+		});
+		
+		var PersonView = Backbone.View.extend({
+			el: $('#personContainer'),
+			
+			template: template($('#personDetail').html()),
+			
+			render: function(eventName) {
 				$(this.el).html(this.template(this.model.toJSON()));
 				return this;
 			}
 		});
 		
-		var PersonView = Backbone.View.extend({
-			el: $('#personContainer')
+		var AppRouter = Backbone.Router.extend({
+			
+			routes: {
+				'': 'list',
+				'#person/:id' : 'personDetail',
+				'/person/:id' : 'personDetail'
+			},
+			
+			initialize: function() {
+				this.personList = new PersonList();
+			},
+		
+			list: function() {
+				
+				this.personListView = new PersonListView({model: this.personList});
+				
+				// load data
+				this.personList.fetch();
+			},
+			
+			personDetail: function(id) {
+				this.person = this.personList.get(id);
+				this.personView = new PersonView({model: this.person});
+				this.personView.render();
+				this.navigate('person/' + id);
+			}
+			
 		});
 		
-		var personList = new PersonList();
-		var personListView = new PersonListView({model: personList});
-
+		var router = new AppRouter();
+		Backbone.history.start({pushState: true, root: '/hitlist/list'});
 	</script>
 </body>
 </html>
