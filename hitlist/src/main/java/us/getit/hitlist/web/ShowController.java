@@ -30,14 +30,14 @@ public class ShowController {
 		this.personService = personService;
 	}
 
-	@RequestMapping("/show/{id}")
+	@RequestMapping("/list/person/{id}")
 	public String show(@PathVariable long id, Model model) {
 
 		Person person = personService.getById(id);
 
 		model.addAttribute("person", person);
 
-		return "show";
+		return "list";
 	}
 
 }

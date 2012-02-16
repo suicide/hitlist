@@ -34,7 +34,7 @@
 	<a href="${addUrl}" id="addLink">add</a>
 	
 	<script type="text/template" id="personListItem">
-		<a href="#person/{{id}}">{{firstname}} {{lastname}}</a>
+		<a href="<c:url value="/list/person"/>/{{id}}">{{firstname}} {{lastname}}</a>
 	</script>
 	
 	<script type="text/template" id="personDetail">
@@ -42,6 +42,7 @@
 	</script>
 	
 	<c:url value="/person" var="personUrl" />
+	<c:url value="/list/" var="rootUrl" />
 	<script type="text/javascript">
 		
 		function template(templateString) {
@@ -73,6 +74,7 @@
 			},
 			
 			render: function() {
+				$(this.el).empty();
 				_.each(this.model.models, function(person) {
 					$(this.el).append(
 							new PersonListItemView({model: person}).render().el);
@@ -84,15 +86,16 @@
 		var PersonListItemView = Backbone.View.extend({
 			tagName: "li",
 			events: {
-				'click a': 'doSomething'
+				'click a': 'clicked'
 			},
 			template: template($('#personListItem').html()),
 			render: function() {
 				$(this.el).html(this.template(this.model.toJSON()));
 				return this;
 			},
-			doSomething: function() {
-				alert('something happened');
+			clicked: function(event) {
+				event.preventDefault();
+				router.navigate("person/" + this.model.id, true);
 			}
 		});
 		
@@ -111,33 +114,33 @@
 			
 			routes: {
 				'': 'list',
-				'#person/:id' : 'personDetail',
-				'/person/:id' : 'personDetail'
+				'person/:id' : 'personDetail',
+				'*default' : 'list' // default/fallback
 			},
 			
 			initialize: function() {
 				this.personList = new PersonList();
+				// load data
+				this.personList.fetch();
 			},
 		
 			list: function() {
 				
 				this.personListView = new PersonListView({model: this.personList});
 				
-				// load data
-				this.personList.fetch();
 			},
 			
 			personDetail: function(id) {
 				this.person = this.personList.get(id);
 				this.personView = new PersonView({model: this.person});
 				this.personView.render();
-				this.navigate('person/' + id);
 			}
 			
 		});
-		
+
 		var router = new AppRouter();
-		Backbone.history.start({pushState: true, root: '/hitlist/list'});
+		
+		Backbone.history.start({pushState: true, root: '${rootUrl}'});
 	</script>
 </body>
 </html>
