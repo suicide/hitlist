@@ -38,7 +38,7 @@
 	</script>
 	
 	<script type="text/template" id="personDetail">
-		Detail: {{firstname}} {{lastname}}!
+		Detail: {{firstname}} {{lastname}}! <a href="<c:url value="/list" />" class="back">X</a>
 	</script>
 	
 	<c:url value="/person" var="personUrl" />
@@ -94,8 +94,9 @@
 				return this;
 			},
 			clicked: function(event) {
+				// change url but do not load site
 				event.preventDefault();
-				router.navigate("person/" + this.model.id, true);
+				Backbone.history.navigate("person/" + this.model.id, true);
 			}
 		});
 		
@@ -104,9 +105,19 @@
 			
 			template: template($('#personDetail').html()),
 			
-			render: function(eventName) {
+			events: {
+				'click a.back': 'close'
+			},
+			
+			render: function(event) {
 				$(this.el).html(this.template(this.model.toJSON()));
 				return this;
+			},
+			
+			close: function(event) {
+				event.preventDefault();
+				Backbone.history.navigate("", true);
+				$(this.el).empty();
 			}
 		});
 		
