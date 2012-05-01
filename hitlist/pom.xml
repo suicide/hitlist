@@ -100,6 +100,12 @@
 			<version>0.9.1.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.hastybox</groupId>
+			<artifactId>type-include-taglib</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
 
 
 		<!-- Annotations -->
